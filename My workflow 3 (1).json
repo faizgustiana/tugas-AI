@@ -1,0 +1,115 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hallo teman!\nNama saya faizz ada yang bisa saya bantu",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        224,
+        176
+      ],
+      "id": "d60009e9-91a6-4182-b84f-98e201cb8371",
+      "name": "When chat message received",
+      "webhookId": "433d13c5-47d9-4ea7-a4fa-b272f478400d"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "\"Anda adalah asisten restoran yang membantu pelanggan dalam menggunakan sistem pemesanan menu melalui monitor. Jawablah pertanyaan dengan jelas, singkat, dan ramah.\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        432,
+        176
+      ],
+      "id": "5531d2ba-47b1-47b4-81fa-af5a73a924bb",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        400,
+        384
+      ],
+      "id": "edc3ca19-2097-420c-9bcf-aded15abfa97",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "bEntOxm1MYU1grVW",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        592,
+        560
+      ],
+      "id": "8ea9e51a-319a-4959-bab6-3b8915d4a6a8",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "92994501-b62b-4d98-a325-486792f1de7c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8ca717fd94af988c964ca8c7ad77d499fdda8a5db6d307c349a7d58046ec5960"
+  },
+  "id": "z3ujdVkh154ZjT2K",
+  "tags": []
+}
